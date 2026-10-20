@@ -1,0 +1,29 @@
+# Godot 4 cache and imported assets
+.godot/
+*.translation
+
+# Mono / .NET build outputs
+bin/
+obj/
+*.tmp
+
+# Visual Studio / Rider / VSCode IDE settings
+.vs/
+.vscode/
+.idea/
+*.user
+*.userosv
+*.suo
+*.userprefs
+*.sln.docstates
+*.sln.dotsettings.user
+
+# Operating System files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# Local save data and logs
+hanoi_save_data.json
+*.log
