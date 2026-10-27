@@ -402,7 +402,7 @@ public partial class MainMenuController : Control
         {
             BbcodeEnabled = true,
             SizeFlagsVertical = Control.SizeFlags.ExpandFill,
-            Text = "[b]Цель игры:[/b]\nПереместить стопку дисков со стартовой Башни A на финишную Башню C, используя буферную Башню B.\n\n" +
+            Text = "[b]Цель игры:[/b]\nПереместить стопку дисков со стартовой Башни A на любую другую: [color=#38bdf8]Башню B[/color] или [color=#38bdf8]Башню C[/color].\n\n" +
                    "[b]Правила:[/b]\n" +
                    "1. За один ход разрешено перекладывать только [color=#38bdf8]один верхний диск[/color].\n" +
                    "2. [color=#ef4444]Нельзя класть больший диск на меньший[/color]. Диск меньшего размера всегда должен лежать выше.\n" +

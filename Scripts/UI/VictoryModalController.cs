@@ -202,7 +202,7 @@ public partial class VictoryModalController : Control
 
         int mins = (int)(timeSeconds / 60);
         int secs = (int)(timeSeconds % 60);
-        _timeLabel.Text = isAutoMode ? "Решено автоматически" : $"Затрачено времени: {mins:D2}:{secs:D2}";
+        _timeLabel.Text = isAutoMode ? $"Решено автоматически (время: {mins:D2}:{secs:D2})" : $"Затрачено времени: {mins:D2}:{secs:D2}";
 
         _ratingCommentLabel.Text = stars switch
         {

@@ -79,20 +79,26 @@ public class HanoiEngine
         return true;
     }
 
-    public bool IsSolved(int targetRod = 2)
+    public bool IsSolved(params int[] targetRods)
     {
-        if (targetRod < 0 || targetRod >= RodCount) return false;
-        var rod = _rods[targetRod];
-        if (rod.Count != DiskCount) return false;
-
-        // Verify correct order (bottom should be DiskCount down to 1 at top)
-        for (int i = 0; i < DiskCount; i++)
+        foreach (var targetRod in targetRods)
         {
-            if (rod[i] != DiskCount - i)
-                return false;
-        }
+            if (targetRod < 0 || targetRod >= RodCount) continue;
+            var rod = _rods[targetRod];
+            if (rod.Count != DiskCount) continue;
 
-        return true;
+            bool rodSolved = true;
+            for (int i = 0; i < DiskCount; i++)
+            {
+                if (rod[i] != DiskCount - i)
+                {
+                    rodSolved = false;
+                    break;
+                }
+            }
+            if (rodSolved) return true;
+        }
+        return false;
     }
 
     /// <summary>

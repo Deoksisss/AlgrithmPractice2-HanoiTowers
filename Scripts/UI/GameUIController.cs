@@ -261,13 +261,10 @@ public partial class GameUIController : Control
 
     public override void _Process(double delta)
     {
-        if (!_isAutoMode)
-        {
-            float elapsed = _gameBoard.GetElapsedTime();
-            int mins = (int)(elapsed / 60);
-            int secs = (int)(elapsed % 60);
-            _timerLabel.Text = $"⏱ {mins:D2}:{secs:D2}";
-        }
+        float elapsed = _gameBoard.GetElapsedTime();
+        int mins = (int)(elapsed / 60);
+        int secs = (int)(elapsed % 60);
+        _timerLabel.Text = $"⏱ {mins:D2}:{secs:D2}";
     }
 
     private void OnSpeedSelected(long index)

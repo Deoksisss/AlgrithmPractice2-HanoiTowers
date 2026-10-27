@@ -67,7 +67,7 @@ public partial class GameBoard : Control
 
     private void SetupRods()
     {
-        string[] labels = { "Башня A (Старт)", "Башня B (Буфер)", "Башня C (Финиш)" };
+        string[] labels = { "Башня A (Старт)", "Башня B (Цель)", "Башня C (Цель)" };
         for (int i = 0; i < 3; i++)
         {
             var rod = new RodView
@@ -135,7 +135,7 @@ public partial class GameBoard : Control
         _engine = new HanoiEngine(DiskCount);
 
         _timerSeconds = 0f;
-        _timerRunning = false;
+        _timerRunning = false; // Starts when player clicks Start / Resume
         _selectedRodForClick = -1;
         _selectedDiskForClick = null;
 
@@ -398,7 +398,7 @@ public partial class GameBoard : Control
             int stars = StarCalculator.CalculateStars(_engine.MovesCount, DiskCount);
             EmitSignal(SignalName.MoveMade, _engine.MovesCount, optimal, stars);
 
-            if (_engine.IsSolved(2))
+            if (_engine.IsSolved(1, 2))
             {
                 _timerRunning = false;
                 SoundManager.Instance?.PlayVictory();
@@ -413,6 +413,7 @@ public partial class GameBoard : Control
     {
         if (!IsAutoMode) return;
         _isAutoPlaying = !_isAutoPlaying;
+        _timerRunning = _isAutoPlaying;
         EmitSignal(SignalName.AutoPlayStateChanged, _isAutoPlaying, _autoStepIndex >= _autoSolution.Count, _autoStepIndex, _autoSolution.Count);
     }
 
@@ -426,6 +427,8 @@ public partial class GameBoard : Control
     {
         if (!IsAutoMode) return;
         _isAutoPlaying = false;
+        _timerRunning = false;
+        _timerSeconds = 0f;
         _isAnimating = false;
         _autoStepIndex = 0;
         _engine.Reset(DiskCount);
@@ -497,9 +500,10 @@ public partial class GameBoard : Control
         bool isFinished = _autoStepIndex >= _autoSolution.Count;
         EmitSignal(SignalName.AutoPlayStateChanged, _isAutoPlaying, isFinished, _autoStepIndex, optimal);
 
-        if (isFinished)
+        if (isFinished || _engine.IsSolved(1, 2))
         {
             _isAutoPlaying = false;
+            _timerRunning = false;
             SoundManager.Instance?.PlayVictory();
             EmitSignal(SignalName.GameWon, _engine.MovesCount, optimal, 3, _timerSeconds);
         }

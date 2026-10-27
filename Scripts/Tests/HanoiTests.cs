@@ -13,7 +13,23 @@ public static class HanoiTests
         TestRecursiveSolverAllDiskCounts();
         TestIllegalMoves();
         TestStarRatingRules();
+        TestVictoryOnBothRods();
         Console.WriteLine("=== All Tests Passed Successfully! ===");
+    }
+
+    private static void TestVictoryOnBothRods()
+    {
+        var engine = new HanoiEngine(3);
+        // Solve to Rod 1
+        var moves = HanoiEngine.GenerateOptimalSolution(3, fromRod: 0, toRod: 1, auxRod: 2);
+        foreach (var (from, to) in moves)
+        {
+            engine.TryMove(from, to);
+        }
+        Debug.Assert(engine.IsSolved(1), "Should be solved on rod 1");
+        Debug.Assert(engine.IsSolved(1, 2), "Should be solved on rod 1 or 2");
+        Debug.Assert(!engine.IsSolved(2), "Should not be solved on rod 2");
+        Console.WriteLine("✓ TestVictoryOnBothRods passed");
     }
 
     private static void TestOptimalMovesCalculation()
